@@ -18,7 +18,7 @@ from .auth_views import (
 )
 
 router = DefaultRouter()
-router.register(r'todos', TodoViewSet)
+router.register(r'todos', TodoViewSet, basename='todo')
 
 urlpatterns = [
     path('', include(router.urls)),
