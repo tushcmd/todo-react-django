@@ -41,11 +41,36 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    'django.contrib.sites',  # Required for allauth - Tush
+    
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # auth providers
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+    
     'rest_framework',
     'corsheaders',
     'channels',
     'todos',
 ]
+
+SITE_ID = 1  # Required for allauth - Tush
+
+# Allauth settings - Tush
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+# Additional allauth settings
+ACCOUNT_EMAIL_VERIFICATION = 'optional'  # or 'mandatory', 'none'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_EMAIL_REQUIRED = True
+LOGIN_REDIRECT_URL = '/'  # Where to redirect after login
+LOGOUT_REDIRECT_URL = '/'  # Where to redirect after logout
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,6 +82,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
     'corsheaders.middleware.CorsMiddleware',
+    
+    'allauth.account.middleware.AccountMiddleware',  # New - Tush
 ]
 
 ROOT_URLCONF = 'todo_project.urls'
